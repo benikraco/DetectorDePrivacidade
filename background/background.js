@@ -1,5 +1,6 @@
 let tabs = {};
 let thirdPartyUrls = new Set();  // Create a new Set to store the third-party URLs
+let cookiesCount = 0;
 
 // Listener for any change in tab URL
 browser.tabs.onUpdated.addListener((id, changeInfo, tab) => {
@@ -25,11 +26,25 @@ browser.webRequest.onBeforeRequest.addListener(
     ['blocking']
 );
 
+browser.webRequest.onHeadersReceived.addListener(
+    (details) => {
+        // Inspect the headers in the HTTP response
+        for (let header of details.responseHeaders) {
+            if (header.name.toLowerCase() === 'set-cookie') {
+                // Count each 'Set-Cookie' header
+                cookiesCount++;
+            }
+        }
+    },
+    { urls: ['<all_urls>'] },
+    ['responseHeaders']
+);
+
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.method === 'getThirdPartyUrls') {
         sendResponse({data: Array.from(thirdPartyUrls)});
-    } else if (request.method === 'clearThirdPartyUrls') {
-        thirdPartyUrls.clear();
+    } else if (request.method === 'getCookiesCount') {
+        sendResponse({data: cookiesCount});
     } else {
         sendResponse({data: null});
     }

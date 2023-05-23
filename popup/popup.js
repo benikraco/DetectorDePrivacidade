@@ -3,6 +3,12 @@ document.addEventListener("DOMContentLoaded", function() {
   .then((response) => {
       renderContent(response.data);
   });
+
+  // Get cookies count
+  browser.runtime.sendMessage({method: "getCookiesCount"})
+  .then((response) => {
+      document.getElementById('cookies-count').textContent = 'Cookies: ' + response.data;
+  });
 });
 
 const renderContent = (data) => {

@@ -12,7 +12,7 @@
                 font-family: Arial, sans-serif;
             }
             h1 {
-                color: #007BFF;
+                color: #ff00f7;
                 font-size: 24px;
                 text-align: center;
                 margin-bottom: 20px;
@@ -28,21 +28,22 @@
                 display: block;
                 margin: 20px auto;
                 padding: 10px 20px;
-                background: #007BFF;
+                background: #ff00f7;
                 color: white;
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
             }
             .clear-btn:hover {
-                background: #0056b3;
+                background: #000000;
             }
         </style>
     </head>
     <body>
         <h1>Detector de Privacidade</h1>
+        <h3 id="cookies-count">Cookies: 0</h3>
         <h3>Dominios de Terceiros</h3>
-        <button class="clear-btn" id="clear-logs">Limpar Log</button>
+        <button class="clear-btn" id="clear-logs">Clean Log</button>
         <ul id="third-party-urls">
         </ul>
         <script src="popup.js"></script>
