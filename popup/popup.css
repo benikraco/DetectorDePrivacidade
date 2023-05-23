@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    background-color: #282c34;
+    color: white;
+    padding: 20px;
+    margin: 0;
+  }
+  
+  #content {
+    padding: 20px;
+  }
+  
+  #third-party-urls {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #third-party-urls li {
+    margin-bottom: 10px;
+    background-color: #ddd;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
