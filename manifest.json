@@ -2,8 +2,8 @@
   "manifest_version": 2,
   "name": "Detector de Privacidade",
   "version": "1.0",
-  "description": "Uma extensão para detectar e apresentar conexões a domínios de terceira parte em uma navegação web.",
-  "permissions": ["<all_urls>", "webRequest", "webRequestBlocking", "activeTab"],
+  "description": "Uma extensão para detectar e apresentar conexões a domínios de terceiros e cookies durante a navegação na web.",
+  "permissions": ["<all_urls>", "webRequest", "webRequestBlocking", "activeTab", "cookies"],
   "background": {
     "scripts": ["background/background.js"]
   },
