@@ -24,6 +24,7 @@ const renderCookies = (data) => {
 
 // Event listener for the Clear Log button
 document.getElementById('clear-logs').addEventListener('click', () => {
+  browser.runtime.sendMessage({method: 'clearLogs'});
   document.getElementById('third-party-urls').innerHTML = '';
   document.getElementById('first-party-cookie-count').innerText = 'Cookies de Primeira Parte: 0';
   document.getElementById('third-party-cookie-count').innerText = 'Cookies de Terceira Parte: 0';

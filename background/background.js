@@ -80,5 +80,12 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
         persistentCookies
       }
     });
+  } else if (request.method === 'clearLogs') {
+    thirdPartyUrls = new Set();
+    cookieDetails = [];
+    firstPartyCookies = 0;
+    thirdPartyCookies = 0;
+    sessionCookies = 0;
+    persistentCookies = 0;
   }
 });
