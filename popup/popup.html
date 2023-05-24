@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Detector de Privacidade</title>
+    <title>Privacy Detector</title>
     <style>
       body {
         width: 300px;
-        height: 300px;
+        height: auto;
         margin: 0;
-        padding: 0;
+        padding: 20px;
         background: #f0f0f0;
         font-family: 'Roboto', Arial, sans-serif;
+        color: #333;
       }
       h1 {
-        color: #ff00f7;
         font-size: 24px;
         text-align: center;
         margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      p {
+        margin-bottom: 10px;
+      }
+      button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background: #0056b3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #003d7a;
       }
       ul {
         list-style: inside disc;
@@ -24,31 +44,25 @@
       li {
         margin-bottom: 10px;
       }
-      button {
-        display: block;
-        margin: 20px auto;
-        padding: 10px 20px;
-        background: #ff00f7;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      button:hover {
-        background: #0056b3;
+      #website {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        color: #0056b3;
       }
     </style>
   </head>
   <body>
-    <h1>Detector de Privacidade</h1>
-    <h3 id="local-storage-count">Dados em Local Storage: 0</h3>
-    <h3 id="cookie-count">Total de Cookies: 0</h3>
-    <h3 id="first-party-cookie-count">Cookies de Primeira Parte: 0</h3>
-    <h3 id="third-party-cookie-count">Cookies de Terceira Parte: 0</h3>
-    <h3 id="session-cookie-count">Cookies de Sessão: 0</h3>
-    <h3 id="persistent-cookie-count">Cookies Persistentes: 0</h3>
-    <button id="clear-logs">Clean Log</button>
-    <h2>Dominios de Terceiros</h2>
+    <h1>Privacy Detector</h1>
+    <h2 id="website">Website: Unknown</h2>
+    <p id="first-party-cookie-count">First-Party Cookies: 0</p>
+    <p id="third-party-cookie-count">Third-Party Cookies: 0</p>
+    <p id="session-cookie-count">Session Cookies: 0</p>
+    <p id="persistent-cookie-count">Persistent Cookies: 0</p>
+    <p id="cookie-count">Total Cookies: 0</p>
+    <p id="local-storage-count">Local Storage Data: 0</p>
+    <button id="clear-logs">Clear Log</button>
+    <h2>Third-Party Domains</h2>
     <ul id="third-party-urls"></ul>
     <script src="popup.js"></script>
   </body>
