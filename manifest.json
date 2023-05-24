@@ -3,10 +3,16 @@
   "name": "Detector de Privacidade",
   "version": "1.0",
   "description": "Uma extensão para detectar e apresentar conexões a domínios de terceiros e cookies durante a navegação na web.",
-  "permissions": ["<all_urls>", "webRequest", "webRequestBlocking", "activeTab", "cookies"],
+  "permissions": ["<all_urls>", "webRequest", "webRequestBlocking", "activeTab", "cookies", "storage", "tabs"],
   "background": {
     "scripts": ["background/background.js"]
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"]
+    }
+  ],
   "browser_action": {
     "default_popup": "popup/popup.html",
     "default_icon": {

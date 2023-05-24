@@ -22,6 +22,11 @@ const renderCookies = (data) => {
   document.getElementById('cookie-count').innerText = `Total de Cookies: ${totalCookies}`;
 };
 
+// Function to render local storage data
+const renderLocalStorageData = (data) => {
+  document.getElementById('local-storage-count').innerText = `Dados em Local Storage: ${data}`;
+};
+
 // Event listener for the Clear Log button
 document.getElementById('clear-logs').addEventListener('click', () => {
   browser.runtime.sendMessage({method: 'clearLogs'});
@@ -31,6 +36,7 @@ document.getElementById('clear-logs').addEventListener('click', () => {
   document.getElementById('session-cookie-count').innerText = 'Cookies de Sessão: 0';
   document.getElementById('persistent-cookie-count').innerText = 'Cookies Persistentes: 0';
   document.getElementById('cookie-count').innerText = 'Total de Cookies: 0';
+  document.getElementById('local-storage-count').innerText = 'Dados em Local Storage: 0';
 });
 
 // On page load, get the list of third-party URLs and Cookies
@@ -47,4 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('*********************** COOKIE DATA END *************************');
       renderCookies(response.data);
     });
+
+  browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
+    browser.tabs.sendMessage(tabs[0].id, {method: 'getLocalStorage'}).then(response => {
+      renderLocalStorageData(response.data);
+    });
+  });
 });

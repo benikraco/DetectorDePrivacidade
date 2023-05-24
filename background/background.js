@@ -71,11 +71,26 @@ const handleCookies = () => {
   });
 };
 
+const checkLocalStorage = () => {
+  return new Promise((resolve, reject) => {
+    browser.tabs.executeScript({
+      code: 'Object.keys(localStorage);'
+    }, result => {
+      if (browser.runtime.lastError) {
+        reject(browser.runtime.lastError);
+      } else {
+        resolve(result[0]);
+      }
+    });
+  });
+};
+
 
 // Listener for extension messages
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.method === 'getThirdPartyUrls') {
     sendResponse({data: Array.from(thirdPartyUrls)});
+    
   } else if (request.method === 'getCookies') {
     handleCookies(); // Handle cookies before sending response
     sendResponse({
@@ -86,6 +101,13 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
         persistentCookies
       }
     });
+
+  } else if (request.method === 'checkLocalStorage') {
+    checkLocalStorage().then(keys => {
+      sendResponse({data: keys});
+    });
+    return true;
+
   } else if (request.method === 'clearLogs') {
     thirdPartyUrls = new Set();
     cookieDetails = [];
