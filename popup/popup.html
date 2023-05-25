@@ -21,6 +21,11 @@
         font-size: 20px;
         margin-bottom: 10px;
       }
+      #cookie-count {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+      }
       p {
         margin-bottom: 10px;
       }
@@ -28,8 +33,8 @@
         display: block;
         margin: 20px auto;
         padding: 10px 20px;
-        background: #0056b3;
-        color: white;
+        background: #ff00a2;
+        color: rgb(255, 255, 255);
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -44,22 +49,23 @@
       li {
         margin-bottom: 10px;
       }
-      #website {
-        font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-        color: #0056b3;
+      .section-divider {
+        margin: 20px 0;
+        border-top: 1px solid #ccc;
       }
     </style>
   </head>
   <body>
     <h1>Privacy Detector</h1>
     <h2 id="website">Website: Unknown</h2>
-    <p id="first-party-cookie-count">First-Party Cookies: 0</p>
-    <p id="third-party-cookie-count">Third-Party Cookies: 0</p>
+    <p id="cookie-count">Total Cookies: 0</p>
+    <div class="section-divider"></div>
+    <p id="first-party-cookie-count">First-Party Cookies: 0 <a href="#" id="first-party-link">(Show)</a></p>
+    <p id="third-party-cookie-count">Third-Party Cookies: 0 <a href="#" id="third-party-link">(Show)</a></p>
+    <div class="section-divider"></div>
     <p id="session-cookie-count">Session Cookies: 0</p>
     <p id="persistent-cookie-count">Persistent Cookies: 0</p>
-    <p id="cookie-count">Total Cookies: 0</p>
+    <div class="section-divider"></div>
     <p id="local-storage-count">Local Storage Data: 0</p>
     <button id="clear-logs">Clear Log</button>
     <h2>Third-Party Domains</h2>

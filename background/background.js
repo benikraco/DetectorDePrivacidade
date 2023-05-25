@@ -18,6 +18,13 @@ browser.webRequest.onBeforeRequest.addListener(
   { urls: ['<all_urls>'] }
 );
 
+// Listen for any changes to the URL of any tab
+browser.tabs.onUpdated.addListener((id, changeInfo, tab) => {
+  if (tab.active && changeInfo.url) {
+    thirdPartyUrls.clear(); // Clear third-party URLs when the active tab is updated
+  }
+});
+
 // Function to update the counts for cookies
 const calculateCookieCounts = () => {
   firstPartyCookies = cookieDetails.filter(cookie => cookie.firstParty).length;
