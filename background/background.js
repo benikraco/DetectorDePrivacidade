@@ -5,7 +5,6 @@ let thirdPartyCookies = 0;
 let sessionCookies = 0;
 let persistentCookies = 0;
 
-// Listener for third-party requests
 browser.webRequest.onBeforeRequest.addListener(
   (details) => {
     const initiator = details.initiator || details.originUrl;
@@ -18,14 +17,6 @@ browser.webRequest.onBeforeRequest.addListener(
   { urls: ['<all_urls>'] }
 );
 
-// Listen for any changes to the URL of any tab
-browser.tabs.onUpdated.addListener((id, changeInfo, tab) => {
-  if (tab.active && changeInfo.url) {
-    thirdPartyUrls.clear(); // Clear third-party URLs when the active tab is updated
-  }
-});
-
-// Function to update the counts for cookies
 const calculateCookieCounts = () => {
   firstPartyCookies = cookieDetails.filter(cookie => cookie.firstParty).length;
   thirdPartyCookies = cookieDetails.filter(cookie => !cookie.firstParty).length;
@@ -33,26 +24,22 @@ const calculateCookieCounts = () => {
   persistentCookies = cookieDetails.filter(cookie => !cookie.session).length;
 }
 
-// Function to handle cookies
 const handleCookies = () => {
   browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
     const currentDomain = new URL(tabs[0].url).hostname;
 
-    // Reset cookie details and counts
     cookieDetails = [];
     firstPartyCookies = 0;
     thirdPartyCookies = 0;
     sessionCookies = 0;
     persistentCookies = 0;
 
-    // Get all cookies related to the current domain
     browser.cookies.getAll({ url: tabs[0].url }).then(cookies => {
       cookies.forEach(cookie => {
         const firstParty = cookie.domain.includes(currentDomain);
         const existingCookieIndex = cookieDetails.findIndex(item => item.name === cookie.name && item.domain === cookie.domain);
 
         if (existingCookieIndex > -1) {
-          // Update existing cookie
           cookieDetails[existingCookieIndex] = {
             name: cookie.name,
             value: cookie.value,
@@ -61,7 +48,6 @@ const handleCookies = () => {
             firstParty: firstParty
           };
         } else {
-          // Add new cookie
           cookieDetails.push({
             name: cookie.name,
             value: cookie.value,
@@ -72,7 +58,6 @@ const handleCookies = () => {
         }
       });
 
-      // Recalculate counts
       calculateCookieCounts();
     });
   });
@@ -92,20 +77,21 @@ const checkLocalStorage = () => {
   });
 };
 
-
-// Listener for extension messages
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.method === 'getThirdPartyUrls') {
     sendResponse({data: Array.from(thirdPartyUrls)});
     
   } else if (request.method === 'getCookies') {
-    handleCookies(); // Handle cookies before sending response
+    handleCookies();
     sendResponse({
       data: {
         firstPartyCookies,
         thirdPartyCookies,
         sessionCookies,
-        persistentCookies
+        persistentCookies,
+        firstPartyCookiesDetails: cookieDetails.filter(cookie => cookie.firstParty),
+        thirdPartyCookiesDetails: cookieDetails.filter(cookie => !cookie.firstParty),
+        cookieDetails
       }
     });
 
@@ -122,5 +108,6 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
     thirdPartyCookies = 0;
     sessionCookies = 0;
     persistentCookies = 0;
+    privacyScore = 10;
   }
 });

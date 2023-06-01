@@ -27,3 +27,8 @@ h1 {
   padding: 10px;
   border-radius: 5px;
 }
+
+#first-party-cookie-count, #third-party-cookie-count {
+  cursor: pointer;
+  color: blue;
+}

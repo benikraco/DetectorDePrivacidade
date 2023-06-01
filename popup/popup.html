@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Privacy Detector</title>
+    <title>Beni's Privacy Detector</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <style>
       body {
         width: 300px;
@@ -9,7 +10,7 @@
         margin: 0;
         padding: 20px;
         background: #f0f0f0;
-        font-family: 'Roboto', Arial, sans-serif;
+        font-family: 'Roboto', sans-serif;
         color: #333;
       }
       h1 {
@@ -21,13 +22,12 @@
         font-size: 20px;
         margin-bottom: 10px;
       }
-      #cookie-count {
-        font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-      }
       p {
         margin-bottom: 10px;
+      }
+      p#cookie-count {
+        font-size: 18px;
+        font-weight: bold;
       }
       button {
         display: block;
@@ -49,27 +49,83 @@
       li {
         margin-bottom: 10px;
       }
-      .section-divider {
-        margin: 20px 0;
-        border-top: 1px solid #ccc;
+      #website {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        color: #ff00a2;
+      }
+      #cookie-links {
+        display: none;
+      }
+      #cookie-details {
+        margin-top: 20px;
+      }
+      #cookie-details h3 {
+        color: #ff00a2;
+        text-align: center;
+      }
+      #cookie-details table {
+        width: 100%;
+      }
+      #cookie-details th,
+      #cookie-details td {
+        border-bottom: 1px solid #ccc;
+        text-align: left;
+        padding: 5px 0;
+      }
+      #cookie-count {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 20px;
+        color: #ff00a2;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #ff00a2;
+        color: white;
       }
     </style>
   </head>
   <body>
-    <h1>Privacy Detector</h1>
+    <h1>Beni's Privacy Detector</h1>
     <h2 id="website">Website: Unknown</h2>
+    <p>Click on "First-Party Cookies" or "Third-Party Cookies" to view the details.</p>
+    <h3>Privacy Score:</h3>
+    <p id="privacy-score">Privacy Score: 10</p>
     <p id="cookie-count">Total Cookies: 0</p>
-    <div class="section-divider"></div>
-    <p id="first-party-cookie-count">First-Party Cookies: 0 <a href="#" id="first-party-link">(Show)</a></p>
-    <p id="third-party-cookie-count">Third-Party Cookies: 0 <a href="#" id="third-party-link">(Show)</a></p>
-    <div class="section-divider"></div>
+    <h3>Cookies Breakdown:</h3>
+    <p id="first-party-cookie-count">First-Party Cookies: 0</p>
+    <p id="third-party-cookie-count">Third-Party Cookies: 0</p>
+    <h3>Session vs Persistent:</h3>
     <p id="session-cookie-count">Session Cookies: 0</p>
     <p id="persistent-cookie-count">Persistent Cookies: 0</p>
-    <div class="section-divider"></div>
+    <h3>Storage:</h3>
     <p id="local-storage-count">Local Storage Data: 0</p>
     <button id="clear-logs">Clear Log</button>
+    <table id="cookie-details">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Domain</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
     <h2>Third-Party Domains</h2>
     <ul id="third-party-urls"></ul>
+    <div id="cookie-links"></div>
     <script src="popup.js"></script>
   </body>
 </html>
